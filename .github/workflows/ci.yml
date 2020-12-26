@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '5 4 * * 1'
+
+jobs:
+  test:
+    name: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ['windows', 'ubuntu', 'macos']
+    runs-on: ${{ matrix.os }}-latest
+    defaults:
+      run:
+        shell: powershell -command 'Set-Item -path env:GITHUB_SCRIPT -Value ("{0}" -replace "\\","\\")'; env
+    steps:
+    - name: Setup paths and env
+      run: |
+        mkdir -p $HOME/.local/bin
+        mkdir -p $HOME/.local/lib/pkgconfig
+        echo "PKG_CONFIG_PATH=$HOME/.local/lib/pkgconfig:$PKG_CONFIG_PATH" >> $GITHUB_ENV
+        echo "LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
+        echo "PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
+        echo "ANT_HOME=foo" >> $GITHUB_ENV
+        echo "ANT_HOME2=bar" >> $GITHUB_ENV
