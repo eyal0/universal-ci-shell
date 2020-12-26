@@ -21,6 +21,11 @@ jobs:
           powershell -command "[System.Environment]::SetEnvironmentVariable('GITHUB_SCRIPT', ('{0}' -replace '\\','\\'))"
           msys2 -c 'source $GITHUB_ENV >/dev/null; export $(cut -d= -f1 $GITHUB_ENV) >/dev/null; if grep -q ErrorActionPreference $(cygpath $GITHUB_SCRIPT); then sed -i 1d $(cygpath $GITHUB_SCRIPT); sed -i \$d $(cygpath $GITHUB_SCRIPT); fi; source $(cygpath $GITHUB_SCRIPT)'
     steps:
+    - name: msys2 linux compatibility
+      if: matrix.os != 'windows'
+      run: |
+        alias powershell=:
+        alias msys2=bash
     - name: Setup msys2
       if: matrix.os == 'windows'
       uses: msys2/setup-msys2@v2
@@ -46,5 +51,6 @@ jobs:
       run: |
         env | grep LD_LIBRARY_PATH | grep local
     - name: Grep env
+      continue-on-error: true
       run: |
         env | grep LD_LIBRARY_PATH | grep local | grep foo
