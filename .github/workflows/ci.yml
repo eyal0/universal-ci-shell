@@ -37,6 +37,9 @@ jobs:
         echo "PKG_CONFIG_PATH=$HOME/.msys_ci_test_path/lib/pkgconfig:$PKG_CONFIG_PATH" >> $GITHUB_ENV
         echo "LD_LIBRARY_PATH=$HOME/.msys_ci_test_path/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
         echo "PATH=$HOME/.msys_ci_test_path/bin:$PATH" >> $GITHUB_ENV
+    - name: Setup one more
+      run: |
+        echo "FOO=BAR" >> $GITHUB_ENV
     - name: Run env
       run: |
         env
