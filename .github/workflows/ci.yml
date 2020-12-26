@@ -17,7 +17,7 @@ jobs:
     runs-on: ${{ matrix.os }}-latest
     defaults:
       run:
-        shell: powershell -command '$env:GITHUB_SCRIPT = "hi"'; powershell -command 'env; echo {0}'
+        shell: powershell -command '$env:GITHUB_SCRIPT = "hi"'; powershell -command 'env; echo {0}; ps'
     steps:
     - name: Setup paths and env
       run: |
