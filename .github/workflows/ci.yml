@@ -49,3 +49,5 @@ jobs:
     - name: Check that PKG_CONFIG_PATH is modified
       run: |
         echo $PKG_CONFIG_PATH | grep msys_ci_test_path
+    - name: Check that uname works
+      run: uname -a
