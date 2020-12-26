@@ -20,7 +20,7 @@ jobs:
         shell: |
           powershell -command "[System.Environment]::SetEnvironmentVariable('GITHUB_SCRIPT', ('{0}' -replace '\\','\\'))"
           powershell -command 'env; echo {0}'
-          msys2 -c 'env; source $GITHUB_ENV; export $(cut -d= -f1 $GITHUB_ENV); echo $GITHUB_SCRIPT; echo hello; env'
+          msys2 -c 'env; source $GITHUB_ENV; export $(cut -d= -f1 $GITHUB_ENV); echo $(cygpath $GITHUB_SCRIPT); echo hello; env'
     steps:
     - name: Setup msys2
       if: matrix.os == 'windows'
