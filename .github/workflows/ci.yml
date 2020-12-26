@@ -19,7 +19,7 @@ jobs:
       run:
         shell: |
           powershell -command "[System.Environment]::SetEnvironmentVariable('GITHUB_SCRIPT', ('{0}' -replace '\\','\\'))"
-          msys2 -c 'if [[ -v "${MSYSTEM}" ]]; then source $GITHUB_ENV >/dev/null; export $(cut -d= -f1 $GITHUB_ENV) >/dev/null; if grep -q ErrorActionPreference $(cygpath $GITHUB_SCRIPT); then sed -i 1d $(cygpath $GITHUB_SCRIPT); sed -i \$d $(cygpath $GITHUB_SCRIPT); fi; source $(cygpath $GITHUB_SCRIPT); else; source $GITHUB_SCRIPT; fi'
+          msys2 -c 'if [[ -v $MSYSTEM ]]; then source $GITHUB_ENV >/dev/null; export $(cut -d= -f1 $GITHUB_ENV) >/dev/null; if grep -q ErrorActionPreference $(cygpath $GITHUB_SCRIPT); then sed -i 1d $(cygpath $GITHUB_SCRIPT); sed -i \$d $(cygpath $GITHUB_SCRIPT); fi; source $(cygpath $GITHUB_SCRIPT); else; source $GITHUB_SCRIPT; fi'
     steps:
     - name: msys2 linux compatibility
       if: matrix.os != 'windows'
