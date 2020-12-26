@@ -19,7 +19,7 @@ jobs:
       run:
         shell: |
           powershell -command "[System.Environment]::SetEnvironmentVariable('GITHUB_SCRIPT', ('{0}' -replace '\\','\\'))"
-          msys2 -c 'if [[ -v MSYSTEM]]; then source $GITHUB_ENV >/dev/null; export $(cut -d= -f1 $GITHUB_ENV) >/dev/null; sed -i 1d $(cygpath $GITHUB_SCRIPT); sed -i \$d $(cygpath $GITHUB_SCRIPT); source $(cygpath $GITHUB_SCRIPT); fi'
+          msys2 -c 'if [[ -v MSYSTEM ]]; then source $GITHUB_ENV >/dev/null; export $(cut -d= -f1 $GITHUB_ENV) >/dev/null; sed -i 1d $(cygpath $GITHUB_SCRIPT); sed -i \$d $(cygpath $GITHUB_SCRIPT); source $(cygpath $GITHUB_SCRIPT); else; source $GITHUB_SCRIPT; fi'
     steps:
     - name: msys2 linux compatibility
       if: matrix.os != 'windows'
@@ -34,23 +34,18 @@ jobs:
         update: true
     - name: Setup paths and env
       run: |
-        mkdir -p $HOME/.local/bin
-        mkdir -p $HOME/.local/lib/pkgconfig
-        echo "PKG_CONFIG_PATH=$HOME/.local/lib/pkgconfig:$PKG_CONFIG_PATH" >> $GITHUB_ENV
-        echo "LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
-        echo "PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
-        echo "ANT_HOME=foo" >> $GITHUB_ENV
-        echo "ANT_HOME2=bar" >> $GITHUB_ENV
+        echo "PKG_CONFIG_PATH=$HOME/.msys_ci_test_path/lib/pkgconfig:$PKG_CONFIG_PATH" >> $GITHUB_ENV
+        echo "LD_LIBRARY_PATH=$HOME/.msys_ci_test_path/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
+        echo "PATH=$HOME/.msys_ci_test_path/bin:$PATH" >> $GITHUB_ENV
     - name: Run env
       run: |
         env
-    - name: Grep env
+    - name: Check that LD_LIBRARY_PATH is modified
       run: |
-        env | grep LD_LIBRARY_PATH
-    - name: Grep env
+        echo $LD_LIBRARY_PATH | grep msys_ci_test_path
+    - name: Check that PATH is modified
       run: |
-        env | grep LD_LIBRARY_PATH | grep local
-    - name: Grep env
-      continue-on-error: true
+        echo $PATH | grep msys_ci_test_path
+    - name: Check that PKG_CONFIG_PATH is modified
       run: |
-        env | grep LD_LIBRARY_PATH | grep local | grep foo
+        echo $PKG_CONFIG_PATH | grep msys_ci_test_path
