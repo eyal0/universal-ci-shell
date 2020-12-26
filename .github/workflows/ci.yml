@@ -39,3 +39,12 @@ jobs:
     - name: Run env
       run: |
         env
+    - name: Grep env
+      run: |
+        env | grep LD_LIBRARY_PATH
+    - name: Grep env
+      run: |
+        env | grep LD_LIBRARY_PATH | grep local
+    - name: Grep env
+      run: |
+        env | grep LD_LIBRARY_PATH | grep local | grep foo
