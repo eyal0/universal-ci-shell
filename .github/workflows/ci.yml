@@ -18,7 +18,7 @@ jobs:
     defaults:
       run:
         shell: |
-          powershell -command "[System.Environment]::SetEnvironmentVariable('GITHUB_SCRIPT', 'hi')"
+          powershell -command '[System.Environment]::SetEnvironmentVariable("GITHUB_SCRIPT", "hi")'
           powershell -command 'env; echo {0}'
     steps:
     - name: Setup paths and env
