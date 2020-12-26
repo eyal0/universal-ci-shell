@@ -18,8 +18,7 @@ jobs:
     defaults:
       run:
         shell: |
-          powershell -command "[System.Environment]::SetEnvironmentVariable('GITHUB_SCRIPT', ('{0}' -replace '\\','\\'))"
-          powershell -command "echo start powershell env; env; echo stop powershell env"
+          powershell -command "[System.Environment]::SetEnvironmentVariable('GITHUB_SCRIPT', ('{0}' -replace '\\','\\')); env"
           msys2 -c 'if [[ -v MSYSTEM ]]; then echo $(cygpath $GITHUB_ENV); echo start; cat /d/a/_temp/_runner_file_commands/set_env*; echo end; sed -i 1d $(cygpath $GITHUB_SCRIPT); sed -i \$d $(cygpath $GITHUB_SCRIPT); source $(cygpath $GITHUB_SCRIPT); fi'
     steps:
     - name: msys2 linux compatibility
