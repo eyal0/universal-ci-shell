@@ -40,6 +40,9 @@ jobs:
     - name: Setup one more
       run: |
         echo "FOO=BAR" >> $GITHUB_ENV
+    - name: Overwrite an old one
+      run: |
+        echo "FOO=WHYNOT" >> $GITHUB_ENV
     - name: Run env
       run: |
         env
