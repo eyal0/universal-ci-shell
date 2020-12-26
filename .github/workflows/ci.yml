@@ -17,7 +17,7 @@ jobs:
     runs-on: ${{ matrix.os }}-latest
     defaults:
       run:
-        shell: powershell -command 'Set-Item -path env:GITHUB_SCRIPT -Value ("{0}" -replace "\\","\\")'; env
+        shell: powershell -command 'Set-Item -path env:GITHUB_SCRIPT -Value ("{0}" -replace "\\","\\"); env'; env
     steps:
     - name: Setup paths and env
       run: |
