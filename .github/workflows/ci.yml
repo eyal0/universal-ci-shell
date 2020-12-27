@@ -19,7 +19,7 @@ jobs:
       run:
         shell: |
           powershell -command "[System.Environment]::SetEnvironmentVariable('GITHUB_SCRIPT', ('{0}' -replace '\\','\\')); dir Env:; [System.Environment]::SetEnvironmentVariable('PKG_CONFIG_PATH_MSYS', $Env:PKG_CONFIG_PATH); [System.Environment]::SetEnvironmentVariable('PATH_MSYS', $Env:Path);"
-          msys2 -c 'if [[ -v MSYSTEM ]]; then sed -i 1d $(cygpath $GITHUB_SCRIPT); sed -i \$d $(cygpath $GITHUB_SCRIPT); if [[ -v PKG_CONFIG_PATH_MSYS ]]; then export PKG_CONFIG_PATH=$PKG_CONFIG_PATH_MSYS; fi; echo PATH is $PATH; echo PATH_MSYS is $PATH_MSYS; echo PATH will be $(echo $PATH_MSYS | sed s/D:\\\\\\\\a\\\\\\\\_temp\\\\\\\\msys// | sed s/\;/:/g); if [[ -v PATH_MSYS && ! ( $PATH_MSYS =~ ^D:\\\\a\\\\_temp ) ]]; then export PATH=$(echo $PATH_MSYS | sed s/D:\\\\\\\\a\\\\\\\\_temp\\\\\\\\msys\;// | sed s/\;/:/g); fi; fi; source $(cygpath $GITHUB_SCRIPT)'
+          msys2 -c 'if [[ -v MSYSTEM ]]; then sed -i 1d $(cygpath $GITHUB_SCRIPT); sed -i \$d $(cygpath $GITHUB_SCRIPT); if [[ -v PKG_CONFIG_PATH_MSYS ]]; then export PKG_CONFIG_PATH=$PKG_CONFIG_PATH_MSYS; fi; echo PATH is $PATH; echo PATH_MSYS is $PATH_MSYS; echo PATH will be $(echo $PATH_MSYS | sed s/D:\\\\\\\\a\\\\\\\\_temp\\\\\\\\msys\;// | sed s/\;/:/g); if [[ -v PATH_MSYS && ! ( $PATH_MSYS =~ ^D:\\\\a\\\\_temp ) ]]; then export PATH=$(echo $PATH_MSYS | sed s/D:\\\\\\\\a\\\\\\\\_temp\\\\\\\\msys\;// | sed s/\;/:/g); fi; fi; source $(cygpath $GITHUB_SCRIPT)'
     steps:
     - name: msys2 linux compatibility
       if: matrix.os != 'windows'
