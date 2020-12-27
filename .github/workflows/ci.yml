@@ -34,7 +34,7 @@ jobs:
       if: matrix.os == 'macos'
       run: |
         echo $PATH
-        sudo ln -s /bin/true /usr/local/bin/powershell
+        sudo ln -s /bin/true /Users/runner/.cargo/bin
         sudo ln -s /bin/bash /usr/local/bin/msys2
         hash -r
         powershell hi
