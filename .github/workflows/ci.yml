@@ -35,7 +35,7 @@ jobs:
       run: |
         echo $PATH
         ls -ltr /Users/runner/.cargo/bin
-        sudo ln -s /usr/bin/true /user/local/opt/curl/bin/powershell
+        sudo ln -s /usr/bin/true /usr/local/opt/curl/bin/powershell
         sudo ln -s /bin/bash /usr/local/bin/msys2
         hash -r
         rehash
