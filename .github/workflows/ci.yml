@@ -24,14 +24,11 @@ jobs:
     - name: msys2 linux compatibility
       if: matrix.os != 'windows'
       run: |
-        sudo ln -s /bin/true /usr/bin/powershell
-        sudo ln -s /bin/bash /usr/bin/msys2
+        sudo ln -s /bin/true /bin/powershell
+        sudo ln -s /bin/bash /bin/msys2
         hash -r
-        whereis true
-        whereis bash
-        ls /usr/bin/powershell
-        ls /usr/bin/true
-        /usr/bin/msys2 -c 'echo hi'
+        powershell hi
+        msys2 -c 'echo hi'
       shell: bash
     - name: Setup msys2
       if: matrix.os == 'windows'
