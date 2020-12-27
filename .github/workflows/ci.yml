@@ -35,11 +35,10 @@ jobs:
       run: |
         echo $PATH
         ls -ltr /Users/runner/.cargo/bin
-        sudo ln -s /bin/true /user/local/opt/curl/bin/powershell
+        sudo ln -s /usr/bin/true /user/local/opt/curl/bin/powershell
         sudo ln -s /bin/bash /usr/local/bin/msys2
         hash -r
         rehash
-        which powershell
         ls -l /Users/runner/.cargo/bin/powershell
         powershell hi
         msys2 -c 'echo hi'
