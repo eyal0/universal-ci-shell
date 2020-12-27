@@ -26,6 +26,7 @@ jobs:
       run: |
         alias powershell=:
         alias msys2=bash
+      shell: bash
     - name: Setup msys2
       if: matrix.os == 'windows'
       uses: msys2/setup-msys2@v2
