@@ -38,7 +38,6 @@ jobs:
         sudo ln -s /usr/bin/true /usr/local/opt/curl/bin/powershell
         sudo ln -s /bin/bash /usr/local/bin/msys2
         hash -r
-        rehash
         ls -l /Users/runner/.cargo/bin/powershell
         powershell hi
         msys2 -c 'echo hi'
