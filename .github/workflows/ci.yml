@@ -24,8 +24,8 @@ jobs:
     - name: msys2 linux compatibility
       if: matrix.os != 'windows'
       run: |
-        sudo ln -s /usr/bin/true /usr/bin/powershell
-        sudo ln -s /usr/bin/bash /usr/bin/msys2
+        sudo ln -s /bin/true /usr/bin/powershell
+        sudo ln -s /bin/bash /usr/bin/msys2
         hash -r
         whereis true
         whereis bash
