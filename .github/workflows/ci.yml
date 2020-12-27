@@ -13,7 +13,7 @@ jobs:
     name: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ['windows']
+        os: ['windows', 'macos', 'ubuntu']
     runs-on: ${{ matrix.os }}-latest
     defaults:
       run:
