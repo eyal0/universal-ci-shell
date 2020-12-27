@@ -40,8 +40,11 @@ jobs:
         echo "/path_msys_test2" >> $GITHUB_PATH
     - name: Test env
       run: |
+        echo $PKG_CONFIG_PATH
         echo $PKG_CONFIG_PATH | egrep ^pkgconfig_msys_test1$
+        echo $LD_LIBRARY_PATH
         echo $LD_LIBRARY_PATH | egrep ^ldlibrary_msys_test1$
+        echo $PATH
         echo $PATH | egrep ^/path_msys_test2:/path_msys_test1
     - name: Setup one more
       run: |
@@ -49,18 +52,26 @@ jobs:
         echo "/msys_ci_test_path/hooray" >> $GITHUB_PATH
     - name: Test env
       run: |
+        echo $PKG_CONFIG_PATH
         echo $PKG_CONFIG_PATH | egrep ^pkgconfig_msys_test1$
+        echo $LD_LIBRARY_PATH
         echo $LD_LIBRARY_PATH | egrep ^ldlibrary_msys_test1$
+        echo $PATH
         echo $PATH | egrep ^/msys_ci_test_path/hooray:/path_msys_test2:/path_msys_test1
+        echo $FOO
         echo $FOO | egrep ^BAR$
     - name: Overwrite an old one
       run: |
         echo "FOO=WHYNOT" >> $GITHUB_ENV
     - name: Test env
       run: |
+        echo $PKG_CONFIG_PATH
         echo $PKG_CONFIG_PATH | egrep ^pkgconfig_msys_test1$
+        echo $LD_LIBRARY_PATH
         echo $LD_LIBRARY_PATH | egrep ^ldlibrary_msys_test1$
+        echo $PATH
         echo $PATH | egrep ^/msys_ci_test_path/hooray:/path_msys_test2:/path_msys_test1
+        echo $FOO
         echo $FOO | egrep ^WHYNOT$
     - name: Check that uname works
       run: uname -a
