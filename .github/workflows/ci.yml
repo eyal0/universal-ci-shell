@@ -18,8 +18,8 @@ jobs:
     defaults:
       run:
         shell: |
-          powershell -command "[System.Environment]::SetEnvironmentVariable('GITHUB_SCRIPT', ('{0}' -replace '\\','\\')); dir Env:; echo WHAT IS THE SCRIPT CONTENTS; type {0}; echo THE END"
-          msys2 -c 'echo ORIGINAL SCRIPT BELOW; cat $(cygpath $GITHUB_SCRIPT); echo END OF SCRIPT; if [[ -v MSYSTEM ]]; then sed -i 1d $(cygpath $GITHUB_SCRIPT); sed -i \$d $(cygpath $GITHUB_SCRIPT); source $(cygpath $GITHUB_SCRIPT); fi'
+          powershell -command "[System.Environment]::SetEnvironmentVariable('GITHUB_SCRIPT', ('{0}' -replace '\\','\\')); dir Env:"
+          msys2 -c 'if [[ -v MSYSTEM ]]; then sed -i 1d $(cygpath $GITHUB_SCRIPT); sed -i \$d $(cygpath $GITHUB_SCRIPT); fi; source $(cygpath $GITHUB_SCRIPT)'
     steps:
     - name: msys2 linux compatibility
       if: matrix.os != 'windows'
@@ -34,28 +34,33 @@ jobs:
         update: true
     - name: Setup paths and env
       run: |
-        echo "PKG_CONFIG_PATH=$HOME/.msys_ci_test_path/lib/pkgconfig:$PKG_CONFIG_PATH" >> $GITHUB_ENV
-        echo "LD_LIBRARY_PATH=$HOME/.msys_ci_test_path/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
-        echo "PATH=$HOME/.msys_ci_test_path/bin:$PATH" >> $GITHUB_ENV
-        echo "/msys_ci_test_path/foo" >> $GITHUB_PATH
+        echo "PKG_CONFIG_PATH=pkgconfig_msys_test1" >> $GITHUB_ENV
+        echo "LD_LIBRARY_PATH=ldlibrary_msys_test1" >> $GITHUB_ENV
+        echo "PATH=/path_msys_test1:$PATH" >> $GITHUB_ENV
+        echo "/path_msys_test2" >> $GITHUB_PATH
+    - name: Test env
+      run: |
+        echo $PKG_CONFIG_PATH | egrep ^pkgconfig_msys_test1$
+        echo $LD_LIBRARY_PATH | egrep ^ldlibrary_msys_test1$
+        echo $PATH | egrep ^/path_msys_test2:/path_msys_test1
     - name: Setup one more
       run: |
         echo "FOO=BAR" >> $GITHUB_ENV
         echo "/msys_ci_test_path/hooray" >> $GITHUB_PATH
+    - name: Test env
+      run: |
+        echo $PKG_CONFIG_PATH | egrep ^pkgconfig_msys_test1$
+        echo $LD_LIBRARY_PATH | egrep ^ldlibrary_msys_test1$
+        echo $PATH | egrep ^/msys_ci_test_path/hooray:/path_msys_test2:/path_msys_test1
+        echo $FOO | egrep ^BAR$
     - name: Overwrite an old one
       run: |
         echo "FOO=WHYNOT" >> $GITHUB_ENV
-    - name: Run env
+    - name: Test env
       run: |
-        env
-    - name: Check that LD_LIBRARY_PATH is modified
-      run: |
-        echo $LD_LIBRARY_PATH | grep msys_ci_test_path
-    - name: Check that PATH is modified
-      run: |
-        echo $PATH | grep msys_ci_test_path
-    - name: Check that PKG_CONFIG_PATH is modified
-      run: |
-        echo $PKG_CONFIG_PATH | grep msys_ci_test_path
+        echo $PKG_CONFIG_PATH | egrep ^pkgconfig_msys_test1$
+        echo $LD_LIBRARY_PATH | egrep ^ldlibrary_msys_test1$
+        echo $PATH | egrep ^/msys_ci_test_path/hooray:/path_msys_test2:/path_msys_test1
+        echo $FOO | egrep ^WHYNOT$
     - name: Check that uname works
       run: uname -a
