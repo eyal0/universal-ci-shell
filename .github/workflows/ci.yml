@@ -19,7 +19,7 @@ jobs:
       run:
         shell: |
           powershell -command "[System.Environment]::SetEnvironmentVariable('GITHUB_SCRIPT', ('{0}' -replace '\\','\\')); dir Env:"
-          msys2 -c 'if [[ -v MSYSTEM ]]; then echo $(cygpath $GITHUB_ENV); echo start; tail -n +1 /d/a/_temp/_runner_file_commands/set_env*; echo end; sed -i 1d $(cygpath $GITHUB_SCRIPT); sed -i \$d $(cygpath $GITHUB_SCRIPT); source $(cygpath $GITHUB_SCRIPT); fi'
+          msys2 -c 'find /d/a/_temp; echo find done; if [[ -v MSYSTEM ]]; then echo $(cygpath $GITHUB_ENV); echo start; tail -n +1 /d/a/_temp/_runner_file_commands/set_env*; echo end; sed -i 1d $(cygpath $GITHUB_SCRIPT); sed -i \$d $(cygpath $GITHUB_SCRIPT); source $(cygpath $GITHUB_SCRIPT); fi'
     steps:
     - name: msys2 linux compatibility
       if: matrix.os != 'windows'
@@ -37,9 +37,11 @@ jobs:
         echo "PKG_CONFIG_PATH=$HOME/.msys_ci_test_path/lib/pkgconfig:$PKG_CONFIG_PATH" >> $GITHUB_ENV
         echo "LD_LIBRARY_PATH=$HOME/.msys_ci_test_path/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
         echo "PATH=$HOME/.msys_ci_test_path/bin:$PATH" >> $GITHUB_ENV
+        echo "/msys_ci_test_path/foo" >> $GITHUB_PATH
     - name: Setup one more
       run: |
         echo "FOO=BAR" >> $GITHUB_ENV
+        echo "/msys_ci_test_path/hooray" >> $GITHUB_PATH
     - name: Overwrite an old one
       run: |
         echo "FOO=WHYNOT" >> $GITHUB_ENV
