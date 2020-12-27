@@ -33,6 +33,7 @@ jobs:
     - name: macos compatibility
       if: matrix.os == 'macos'
       run: |
+        echo $PATH
         sudo ln -s /bin/true /usr/local/bin/powershell
         sudo ln -s /bin/bash /usr/local/bin/msys2
         hash -r
