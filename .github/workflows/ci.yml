@@ -65,7 +65,7 @@ jobs:
         echo $FOO | egrep ^BAR$
     - name: Another path
       run: |
-        echo "/msys_ci_test_path/hooray" >> $GITHUB_PATH
+        echo "/msys_ci_test_path/whatnow" >> $GITHUB_PATH
     - name: Test env
       run: |
         echo $PKG_CONFIG_PATH
