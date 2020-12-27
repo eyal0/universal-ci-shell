@@ -24,8 +24,8 @@ jobs:
     - name: msys2 linux compatibility
       if: matrix.os != 'windows'
       run: |
-        alias powershell=:
-        alias msys2=bash
+        sudo ln -s `print -r -- true` /usr/local/bin/powershell
+        sudo ln -s `print -r -- bash` /usr/local/bin/msys2
       shell: bash
     - name: Setup msys2
       if: matrix.os == 'windows'
