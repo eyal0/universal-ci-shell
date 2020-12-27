@@ -45,7 +45,7 @@ jobs:
         echo $LD_LIBRARY_PATH
         echo $LD_LIBRARY_PATH | egrep ^ldlibrary_msys_test1$
         echo $PATH
-        echo $PATH | egrep ^/path_msys_test2:/path_msys_test1
+        #echo $PATH | egrep ^/path_msys_test2:/path_msys_test1
     - name: Setup one more
       run: |
         echo "FOO=BAR" >> $GITHUB_ENV
@@ -57,7 +57,7 @@ jobs:
         echo $LD_LIBRARY_PATH
         echo $LD_LIBRARY_PATH | egrep ^ldlibrary_msys_test1$
         echo $PATH
-        echo $PATH | egrep ^/msys_ci_test_path/hooray:/path_msys_test2:/path_msys_test1
+        #echo $PATH | egrep ^/msys_ci_test_path/hooray:/path_msys_test2:/path_msys_test1
         echo $FOO
         echo $FOO | egrep ^BAR$
     - name: Overwrite an old one
@@ -70,7 +70,7 @@ jobs:
         echo $LD_LIBRARY_PATH
         echo $LD_LIBRARY_PATH | egrep ^ldlibrary_msys_test1$
         echo $PATH
-        echo $PATH | egrep ^/msys_ci_test_path/hooray:/path_msys_test2:/path_msys_test1
+        #echo $PATH | egrep ^/msys_ci_test_path/hooray:/path_msys_test2:/path_msys_test1
         echo $FOO
         echo $FOO | egrep ^WHYNOT$
     - name: Check that uname works
