@@ -27,9 +27,9 @@ jobs:
         echo $PATH
         which true
         which bash
-        (ls /bin/true && sudo ln -s /bin/true /usr//bin/powershell) || true
-        (ls /usr/bin/true && sudo ln -s /usr/bin/true /usr/bin/powershell) || true
-        sudo ln -s /bin/bash /bin/msys2
+        (ls /bin/true && sudo ln -s /bin/true /usr/local/bin/powershell) || true
+        (ls /usr/bin/true && sudo ln -s /usr/bin/true /usr/local/bin/powershell) || true
+        sudo ln -s /bin/bash /usr/local/bin/msys2
         hash -r
         powershell hi
         msys2 -c 'echo hi'
