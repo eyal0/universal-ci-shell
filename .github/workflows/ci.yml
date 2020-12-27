@@ -33,6 +33,8 @@ jobs:
         hash -r
         powershell hi
         msys2 -c 'echo hi'
+        which powershell
+        which msys2
       shell: bash
     - name: Setup msys2
       if: matrix.os == 'windows'
