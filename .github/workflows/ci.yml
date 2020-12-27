@@ -27,7 +27,10 @@ jobs:
         sudo ln -s /usr/bin/true /usr/bin/powershell
         sudo ln -s /usr/bin/bash /usr/bin/msys2
         hash -r
-        /usr/bin/powershell
+        whereis true
+        whereis bash
+        ls /usr/bin/powershell
+        ls /usr/bin/true
         /usr/bin/msys2 -c 'echo hi'
       shell: bash
     - name: Setup msys2
