@@ -24,6 +24,7 @@ jobs:
     - name: msys2 linux compatibility
       if: matrix.os != 'windows'
       run: |
+        echo $PATH
         which true
         which bash
         (ls /bin/true && sudo ln -s /bin/true /usr//bin/powershell) || true
