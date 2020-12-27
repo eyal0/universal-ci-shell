@@ -30,6 +30,15 @@ jobs:
         powershell hi
         msys2 -c 'echo hi'
       shell: bash
+    - name: macos compatibility
+      if: matrix.os == 'macos'
+      run: |
+        sudo ln -s /bin/true /usr/local/bin/powershell
+        sudo ln -s /bin/bash /usr/local/bin/msys2
+        hash -r
+        powershell hi
+        msys2 -c 'echo hi'
+      shell: bash
     - name: Setup msys2
       if: matrix.os == 'windows'
       uses: msys2/setup-msys2@v2
