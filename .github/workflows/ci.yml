@@ -26,6 +26,7 @@ jobs:
       run: |
         sudo ln -s /bin/true /usr/local/bin/powershell
         sudo ln -s /bin/bash /usr/local/bin/msys2
+        sudo ln -s /bin/echo /usr/local/bin/cygpath
         hash -r
         powershell hi
         msys2 -c 'echo hi'
@@ -36,6 +37,7 @@ jobs:
         echo $PATH
         ls -ltr /Users/runner/.cargo/bin
         sudo ln -s /usr/bin/true /Users/runner/.cargo/bin/powershell
+        sudo ln -s /usr/bin/echo /Users/runner/.cargo/bin/cygpath
         sudo ln -s /bin/bash /usr/local/bin/msys2
         hash -r
         powershell hi
