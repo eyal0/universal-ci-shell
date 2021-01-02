@@ -51,6 +51,8 @@ jobs:
         update: true
     - name: Show the original path
       run: echo $PATH
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
     - name: write PATH to GITHUB_ENV
       run: |
         echo "PATH=/path_msys_test1:$PATH" >> $GITHUB_ENV
