@@ -53,7 +53,7 @@ jobs:
         update: true
     - name: Show the original path
       run: echo $PATH
-      shell: /bin/bash --noprofile --norc -e -o pipefail {0}
+      shell: msys2 -c 'if [[ -v MSYSTEM ]]; then sed -i 1d $(cygpath $GITHUB_SCRIPT); sed -i \$d $(cygpath $GITHUB_SCRIPT); if [[ -v PKG_CONFIG_PATH_MSYS ]]; then export PKG_CONFIG_PATH=$PKG_CONFIG_PATH_MSYS; fi; if [[ -v PATH_MSYS && ! ( $PATH_MSYS =~ ^D:\\\\a\\\\_temp\\\\msys\;C:\\\\Users ) ]]; then export PATH=$(echo $PATH_MSYS | sed s/D:\\\\\\\\a\\\\\\\\_temp\\\\\\\\msys\;// | sed s/\;/:/g); fi; fi; echo hi; cat $GITHUB_SCRIPT; source $(cygpath $GITHUB_SCRIPT)'
     #- name: Setup tmate session
     #  uses: mxschmitt/action-tmate@v3
     - name: write PATH to GITHUB_ENV
