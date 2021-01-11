@@ -47,7 +47,7 @@ jobs:
       shell: bash
     - name: Setup msys2
       if: matrix.os == 'windows'
-      uses: msys2/setup-msys2@v2
+      uses: eyal0/setup-msys2@path_support
       with:
         msystem: MINGW64
         update: true
